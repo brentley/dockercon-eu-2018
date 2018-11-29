@@ -1,0 +1,19 @@
+# FROM node:alpine
+FROM centos:latest as BUILD_ENV
+
+# copy package info early to install npms and delete npm command
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN yum -y install epel-release && \
+    yum -y install nodejs nodejs-npm && \
+  npm install 
+
+# copy the code
+COPY . .
+
+FROM gcr.io/distroless/nodejs
+COPY --from=BUILD_ENV /usr/src/app /usr/src/app
+WORKDIR /usr/src/app
+
+EXPOSE 3000
+ENTRYPOINT ["/nodejs/bin/node","server.js"]

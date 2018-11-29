@@ -1,0 +1,13 @@
+# FROM node:alpine
+FROM alpine:3.5
+
+# copy package info early to install npms and delete npm command
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN apk -U add bash nodejs && \
+  npm install 
+
+# copy the code
+COPY . .
+EXPOSE 3000
+ENTRYPOINT ["node","server.js"]

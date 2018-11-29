@@ -1,0 +1,14 @@
+# FROM node:alpine
+FROM centos:latest
+
+# copy package info early to install npms and delete npm command
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN yum -y install epel-release && \
+    yum -y install nodejs nodejs-npm && \
+  npm install 
+
+# copy the code
+COPY . .
+EXPOSE 3000
+ENTRYPOINT ["node","server.js"]

@@ -1,0 +1,11 @@
+{
+  "name": "example-nodejs",
+  "version": "1.0.0",
+  "license": "ISC",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.16.2",
+    "express-healthcheck": "^0.1.0",
+    "morgan": "^1.9.1"
+  }
+}

@@ -1,0 +1,16 @@
+FROM centos:latest
+
+# update/install needed packages
+# RUN yum -y update
+RUN yum -y install epel-release
+RUN yum -y install nodejs nodejs-npm
+
+# change to dir
+WORKDIR /usr/src/app
+
+# copy the code
+COPY . .
+RUN npm install 
+
+EXPOSE 3000
+ENTRYPOINT ["node","server.js"]
